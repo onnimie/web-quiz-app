@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Quiz & topics!</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/98.css">
+  </head>
+  <body style="background-color:LightSteelBlue;">
+    <div class="title-bar">
+      <div class="title-bar-text">
+        <a href="/topics"><strong style="color: white">✨ Topics ✨</strong></a>
+      </div>
+      <div class="title-bar-text">
+        <a href="/quiz"><strong style="color: white">✨ Quiz ✨</strong></a>
+      </div>
+      <div class="title-bar-text">
+        <a href="/"><strong style="color: white">✨ Main page ✨</strong></a>
+      </div>
+    </div>
+    <div class="container">
+        <%~ it.body %>
+    </div>
+  </body>
+</html>

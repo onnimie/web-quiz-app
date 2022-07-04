@@ -1,0 +1,58 @@
+<% layout("./layouts/layout.eta") %>
+
+<h2>Topics</h2>
+
+<ul>
+<% it.topics.forEach((topic) => { %>
+    <li>
+        <a href="/topics/<%= topic.id %>">
+            <%= topic.name %>
+        </a>
+        <% if (it.userIsAdmin) { %>
+        <form method="POST" action="/topics/<%= topic.id %>/delete">
+            <input type="submit" value="Delete" />
+        </form>
+        <% } %>
+    </li>
+<% }); %>
+</ul>
+
+
+<% if (it.errors) { %>
+
+<div class="window" style="width: 300px">
+  <div class="title-bar">
+    <div class="title-bar-text">Topic had errors</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <ul>
+    <% Object.keys(it.errors).forEach((attribute) => { %>
+        <% Object.values(it.errors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+    </ul>
+  </div>
+</div>
+<br>
+
+<% } %>
+
+<% if (it.authFailed) { %>
+<b>Authentication failed! Cannot execute admin actions..</b>
+<% } %>
+
+<% if (it.userIsAdmin) { %>
+<fieldset>
+    <form method="POST" action="/topics">
+        <label for="name">Create a new topic:</label><br>
+        <input type="text" name="name" <% if (it.errors) { %> value="<%= it.topicName %>" <% } %>/><br>
+        <input type="submit" value="Create" />
+    </form>
+</fieldset>
+<% } %>

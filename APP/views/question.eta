@@ -1,0 +1,62 @@
+<% layout("./layouts/layout.eta") %>
+
+<h2>Question <%= it.questionId %> from <%= it.topicName %></h2>
+
+<h4><%= it.questionText %></h4>
+
+<p>Answer options:</p>
+
+<ul>
+<% it.answerOptions.forEach((option) => { %>
+    <li><%= option.option_text %> (<%= option.is_correct %>)
+        <form method="POST" action="/topics/<%= it.topicId %>/questions/<%= it.questionId %>/options/<%= option.id %>/delete">
+        <input type="submit" value="Delete option" />
+        </form>
+    </li>
+<% }); %>
+</ul>
+
+<% if (it.answerOptions.length == 0) { %>
+    <form method="POST" action="/topics/<%= it.topicId %>/questions/<%= it.questionId %>/delete">
+    <input type="submit" value="Delete question" />
+    </form>
+<% } %>
+
+<br>
+
+<% if (it.errors) { %>
+
+<div class="window" style="width: 300px">
+  <div class="title-bar">
+    <div class="title-bar-text">Answer option had errors</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <ul>
+    <% Object.keys(it.errors).forEach((attribute) => { %>
+        <% Object.values(it.errors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+    </ul>
+  </div>
+</div>
+
+<% } %>
+
+<br>
+<fieldset>
+<b>Add a new answer option?</b>
+<form method="POST" action="/topics/<%= it.topicId %>/questions/<%= it.questionId %>/options">
+<input type="textarea" name="option_text" <% if (it.errors) { %> value="<%= it.answerOptionText %>" <% } %> />
+<label for="option_text">answer text</label><br>
+<input type="checkbox" name="is_correct" id="is_correct" <% if (it.errors && it.isCorrect) { %> checked <% } %> />
+<label for="is_correct">is correct</label><br>
+<input type="submit" value="Add option" />
+</form>
+</fieldset>
+

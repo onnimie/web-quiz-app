@@ -1,0 +1,24 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1></h1>
+
+<h3><%= it.questionText %></h3>
+
+<p>Answer options:</p>
+
+<ul>
+<% it.answerOptions.forEach((option) => { %>
+    <li><%= option.option_text %>
+        <form method="POST" action="/quiz/<%= it.topicId %>/questions/<%= it.questionId %>/options/<%= option.id %>">
+        <input type="submit" value="Choose" />
+        </form>
+    </li>
+<% }); %>
+</ul>
+
+<% if (it.answerOptions.length == 0) { %>
+    <b>No answer options added yet to this question!</b>
+    <br>
+    <a href="/quiz/<%= it.topicId %>">Next question</a>
+<% } %>
+<br>

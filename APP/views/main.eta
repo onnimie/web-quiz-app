@@ -1,0 +1,36 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Drill and practice</h1>
+
+<% if (it.authenticated) { %>
+You are currently logged in as  <%= it.user_email %>
+<% }  else { %>
+To use the application, <a href="/auth/login">log in</a> to an existing user account
+or <a href="/auth/register">register</a> a new one.
+<% } %>
+
+<br><br><br>
+<fieldset style="background-color: steelblue"><strong style="color: white">
+This is the main page of a drill-and-practice-application. You can create topics, questions and question answer options for the questions.<br>
+You can also be quizzed with these questions.<br><br>
+
+Every question must be under a topic, so you can begin by creating a new topic if there aren't any. (NOTE: Only admins can create topics)<br>
+After clicking a topic link, you are navigated to a page where you can create questions under that topic.<br>
+To add answer options to a question, you must first navigate to the question's own page by clicking the question link in the topic page.<br><br>
+
+Note that you must be logged in with a user account in order to use the application.
+</strong></fieldset>
+<br>
+
+<div class="window" style="width: 300px">
+  <div class="title-bar">
+    <div class="title-bar-text">Application statistics</div>
+  </div>
+  <div class="window-body">
+    <ul>
+      <li>Topics: <%= it.nof_topics %></li>
+      <li>Questions: <%= it.nof_questions %></li>
+      <li>User answers: <%= it.nof_answers %></li>
+    </ul>
+  </div>
+</div>

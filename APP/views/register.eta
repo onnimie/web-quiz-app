@@ -1,0 +1,41 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Register a new user account</h1>
+
+<% if (it.errors) { %>
+
+<div class="window" style="width: 300px">
+  <div class="title-bar">
+    <div class="title-bar-text">Registration errors</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <ul>
+    <% Object.keys(it.errors).forEach((attribute) => { %>
+        <% Object.values(it.errors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+    </ul>
+  </div>
+</div>
+<br>
+
+<% } %>
+<fieldset>
+<form method="POST" action="/auth/register">
+<input type="email" name="email" <% if (it.errors) { %> value="<%= it.email %>" <% } %> />
+<label for="email">account email</label><br>
+<input type="password" name="password" />
+<label for="password">password</label><br>
+<input type="submit" value="Register" />
+</form>
+</fieldset>
+<br>
+
+Already have an account? <a href="/auth/login">Log in with an existing account!</a>
+<br>

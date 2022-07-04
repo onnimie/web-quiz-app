@@ -1,0 +1,43 @@
+<% layout("./layouts/layout.eta") %>
+
+<h2>Topic: <%= it.topicName %></h2>
+
+<ul>
+<% it.questions.forEach((question) => { %>
+    <li><a href="/topics/<%= it.topicId %>/questions/<%= question.id %>"><%= question.question_text %></a></li>
+    
+<% }); %>
+</ul>
+
+
+<% if (it.errors) { %>
+
+<div class="window" style="width: 300px">
+  <div class="title-bar">
+    <div class="title-bar-text">Question had errors</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <ul>
+    <% Object.keys(it.errors).forEach((attribute) => { %>
+        <% Object.values(it.errors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+    </ul>
+  </div>
+</div>
+<br>
+
+<% } %>
+<fieldset>
+<form method="POST" action="/topics/<%= it.topicId %>/questions">
+<label for="question_text">new question text</label>
+<input type="textarea" name="question_text" />
+<input type="submit" value="Add question" />
+</form>
+</fieldset>
